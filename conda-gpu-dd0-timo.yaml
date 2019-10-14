@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+    name: conda-gpu-dd0-timo
+spec:
+    hostNetwork: true
+    containers:
+    - name: main
+      image: dklabjan/conda-gpu:tensortorch.1
+      command: ["sleep"]
+      args: ["infinity"]
+      volumeMounts:
+      - mountPath: /gluster
+        name: data-volume
+    volumes:
+    - name: data-volume
+      hostPath:
+          path: /mnt-gluster/data/twang
+          type: Directory
+    nodeSelector:
+        kubernetes.io/hostname: deepdish0
